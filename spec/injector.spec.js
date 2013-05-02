@@ -5,7 +5,7 @@ describe('Injector', function() {
 
   afterEach(function() {
     delete window.Engine;
-    delete window.Breaks;
+    delete window.Brakes;
     delete window.Car;
   });
 
@@ -32,16 +32,16 @@ describe('Injector', function() {
   }
 
 
-  function DiskBreaks() {
+  function DiskBrakes() {
     this.toString = function() {
-      return 'diskBreaks';
+      return 'diskBrakes';
     };
   }
 
 
-  function RegenerativeBreaks() {
+  function RegenerativeBrakes() {
     this.toString = function() {
-      return 'regenerativeBreaks';
+      return 'regenerativeBrakes';
     }
   }
 */

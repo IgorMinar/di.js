@@ -1,8 +1,8 @@
-define(['myapp/engine', 'myapp/breaks'], function() {
-  return function Car(myapp_Engine, myapp_Breaks) {
+define(['myapp/engine', 'myapp/brakes'], function() {
+  return function Car(myapp_Engine, myapp_Brakes) {
     this.engine = myapp_Engine;
-    this.breaks = myapp_Breaks;
+    this.brakes = myapp_Brakes;
 
-    this.toString = function() { return 'sportsCar(' + this.engine + ', ' + this.breaks + ')'};
+    this.toString = function() { return 'sportsCar(' + this.engine + ', ' + this.brakes + ')'};
   };
 });
