@@ -6,13 +6,15 @@
 
   var originalRequire = window.require;
   var originalDefine = window.define;
-  var module = {};
+  var module;
   var dependenciesToResolve = [];
 
   function require(dependencies, wrapper) {
+    require.module = module = {};
     console.log('requiring ', dependencies);
     dependenciesToResolve.push.apply(dependenciesToResolve, dependencies);
     originalRequire.apply(null, arguments);
+    return module;
   }
 
 
@@ -55,5 +57,4 @@
 
   window.require = require;
   window.define = define;
-  require.module = module;
 }());
