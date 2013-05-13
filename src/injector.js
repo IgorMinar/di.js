@@ -1,7 +1,7 @@
 'use strict';
 
 
-var di = {};
+var di = di || {};
 
 //////
 
@@ -9,6 +9,7 @@ di.Injector = function Injector(modules) {
   return new di.Injector_(
       di.windowSuperProvider,
       di.toStringTokenExtractorFactory(di.upperCasingTokenDeserializer),
+      di.syncObjectResolver,
       modules
   );
 };
@@ -17,9 +18,10 @@ di.Injector = function Injector(modules) {
 //////
 
 
-di.Injector_ = function Injector_(superProvider, tokenExtractor, modules) {
+di.Injector_ = function Injector_(superProvider, tokenExtractor, objectResolver, modules) {
   this.superProvider_ = superProvider || di.errorSuperProvider;
   this.tokenExtractor_ = tokenExtractor;
+  this.resolve = objectResolver;
   this.modules_ = modules;
   this.providers_ = {};
   this.cache_ = {};
@@ -75,7 +77,9 @@ di.Injector_.prototype.inject_ = function(fn, context) {
     objects.push(self.get(token));
   });
 
-  return fn.apply(context, objects) || context;
+  return self.resolve(function(resolvedObjects) {
+    return fn.apply(context, resolvedObjects) || context;
+  }, objects, context);
 }
 
 
@@ -147,4 +151,11 @@ di.upperCasingTokenDeserializer = function(string) {
 
 di.nameSpacingTokenDeserializer = function(string) {
   return string.replace(/_/g, '.');
+};
+
+
+//////////
+
+di.syncObjectResolver = function(fn, objects) {
+  return fn(objects);
 };
