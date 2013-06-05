@@ -11,6 +11,7 @@ var module1 = require(["myapp/car"], function() {
   var injector = new di.Injector_(
       null, // no super provider
       di.toStringTokenExtractorFactory(di.nameSpacingTokenDeserializer),
+      di.syncObjectResolver,
       [module1]
   );
 
