@@ -1,0 +1,7 @@
+{
+  "name": "di.js",
+  "version": "0.0.0",
+  "devDependencies": {
+    "requirejs": "~2.1.6"
+  }
+}
